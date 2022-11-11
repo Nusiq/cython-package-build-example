@@ -1,0 +1,12 @@
+build/*
+**/.mypy_cache/**
+dist/**
+**/*.egg-info/**
+*~
+*.swp
+*.swo
+.*.swp
+.*.swo
+**/.vscode/**
+**/__pycache__/**
+*.c
