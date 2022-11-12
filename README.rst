@@ -53,6 +53,10 @@ Pushing tags that match the :code:`*.*.*` pattern triggers two GitHub Actions. O
 wheels (binary packages) and the other one builds the source distribution (sdist). Generated files
 are uploaded to PyPI and to the GitHub release.
 
+.. WARNING::
+
+    Building wheels for linux is very slow. It takes about 40 minutes.
+
 Configuration of the GitHub Actions
 -----------------------------------
 
