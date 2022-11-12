@@ -56,7 +56,7 @@ def main():
         f"Bump version to {version} using bump_version.py"])
 
     # Add git tag
-    tag = f"v{'.'.join([str(x) for x in version])}"
+    tag = f"{'.'.join([str(x) for x in version])}"
     print(f"Adding git tag: {tag}")
     subprocess.run(["git", "tag", tag])
 
