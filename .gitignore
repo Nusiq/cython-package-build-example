@@ -1,5 +1,6 @@
 wheels/*
 build/*
+wheelhouse/*
 **/.mypy_cache/**
 dist/**
 **/*.egg-info/**
