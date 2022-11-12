@@ -1,0 +1,53 @@
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Build
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+
+jobs:
+  deploy:
+    runs-on: ${{ matrix.cfg.os }}
+    defaults:
+      run:
+        shell: bash
+
+    strategy:
+      matrix:
+        cfg:
+        - {os: windows-latest, python-version: 3.11, architecture: x64}
+        - {os: windows-latest, python-version: 3.11, architecture: x86}
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.cfg.python-version }} ${{ matrix.cfg.architecture }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.cfg.python-version }}
+        architecture: ${{ matrix.cfg.architecture }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install setuptools wheel twine Cython
+
+    - name: Setup
+      run: |
+        python -m build
+        python -m pip install wheel . --wheel-dir wheels
+
+
+    # TODO - I'm not sure if this upload would work
+    # - name: Publish to PyPi
+    #   env:
+    #     TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+    #     TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+    #   run: |
+    #     twine upload wheels/* ????????????????????????????
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: wheels/*

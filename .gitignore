@@ -1,3 +1,4 @@
+wheels/*
 build/*
 **/.mypy_cache/**
 dist/**

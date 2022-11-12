@@ -3,11 +3,11 @@ requires = ["setuptools", "wheel", "Cython>=0.29.1", "numpy>=1.19.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "cython-lib-test"
+name = "cython-package-build-example"
 description = "The test Cython library"
 authors = [{name="Nusiq"}]
 license = {file="LICENSE"}
-urls = {Source = "https://github.com/Nusiq/cython-lib-test/tree/master"}
+urls = {Source = "https://github.com/Nusiq/cython-package-build-example/"}
 dynamic = ["version", "readme"]
 requires-python = ">=3.10"
 classifiers = [
@@ -17,13 +17,13 @@ classifiers = [
 ]
 
 [tool.setuptools.dynamic]
-version = {attr = "cython_lib_test.VERSION"}
+version = {attr = "cython_package_build_example.VERSION"}
 readme = {file = ["README.rst", "LICENSE"]}
 
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["cython_lib_test"]  # package names should match these glob patterns (["*"] by default)
+include = ["cython_package_build_example"]  # package names should match these glob patterns (["*"] by default)
 exclude = [
     "*.tests",
     "*.tests.*",
