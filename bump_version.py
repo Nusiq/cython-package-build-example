@@ -51,7 +51,9 @@ def main():
         f.writelines(lines)
     # Commit changes
     subprocess.run(["git", "add", VERSION_FILE_PATH.as_posix()])
-    subprocess.run(["git", "commit", "-m", f"Bump version to {version}"])
+    subprocess.run([
+        "git", "commit", "-m",
+        f"Bump version to {version} using bump_version.py"])
 
     # Add git tag
     tag = f"v{'.'.join([str(x) for x in version])}"
