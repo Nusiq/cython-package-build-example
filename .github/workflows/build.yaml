@@ -46,7 +46,8 @@ jobs:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
       run: |
-        python -m twine upload dist/*
+        # This should be changed to --repository pypi or removed (pypi is default)
+        python -m twine upload --repository testpypi dist/*
 
     - name: Release
       uses: softprops/action-gh-release@v1
