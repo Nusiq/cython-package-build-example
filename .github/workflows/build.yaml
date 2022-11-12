@@ -40,13 +40,13 @@ jobs:
         python -m build
 
 
-    # TODO - I'm not sure if this upload would work
-    # - name: Publish to PyPi
-    #   env:
-    #     TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-    #     TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-    #   run: |
-    #     python -m twine upload
+    # https://twine.readthedocs.io/en/latest/index.html#environment-variables
+    - name: Publish to PyPi
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+      run: |
+        python -m twine upload
 
     - name: Release
       uses: softprops/action-gh-release@v1
