@@ -30,15 +30,16 @@ jobs:
         python-version: ${{ matrix.cfg.python-version }}
         architecture: ${{ matrix.cfg.architecture }}
 
+    # Hopefull is able to build manylinx wheel (see pep 513): https://peps.python.org/pep-0513/
+    # This explains why not use "build" package: https://github.com/pypa/build/issues/480
+    # CI build wheel docs: https://cibuildwheel.readthedocs.io/en/stable/setup/#github-actions
+    - name: Build wheels
+      uses: pypa/cibuildwheel@v2.11.2
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install twine build
-
-    - name: Setup
-      run: |
-        python -m build
-
+        pip install twine
 
     # https://twine.readthedocs.io/en/latest/index.html#environment-variables
     - name: Publish to PyPi
