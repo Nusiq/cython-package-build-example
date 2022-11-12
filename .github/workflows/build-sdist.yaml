@@ -1,0 +1,50 @@
+# This action builds sdist (source distribution) and uploads it to PyPI.
+#
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Build Sdist
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.11
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install twine
+
+    - name: Build SDist
+      run: pipx run build --sdist
+
+    - uses: actions/upload-artifact@v3
+      with:
+        path: dist/*.tar.gz
+
+    # https://twine.readthedocs.io/en/latest/index.html#environment-variables
+    - name: Publish to PyPi
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+      run: |
+        # This should be changed to --repository pypi or removed (pypi is default)
+        python -m twine upload --repository testpypi dist/*.tar.gz
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: dist/*.tar.gz
